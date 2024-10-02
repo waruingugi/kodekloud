@@ -1,0 +1,19 @@
+# > kubectl get service
+# > minikube service myapp-service --url
+
+# Default service port is ´ClusterIP´
+# In production, you use service port type ´LoadBalancer´
+# A loadbalance service port allows you to simply use a domain
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 800
+      targetPort: 80
+      nodePort: 30004
+  selector:
+    app: myapp

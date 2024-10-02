@@ -1,0 +1,31 @@
+# > Deployments create replicasets
+# > kubectl create -f deployment-defintion.yml
+# > kubectl rollout status deployment myapp-deployment
+# > kubectl rollout deployments myapp-deployment
+# > kubectl apply -f deployment-definition.yml
+# > kubectl rollout undo deployment/myapp-deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  annotations:
+    kubernetes.io/change-cause: "Update nginx to latest version"
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-prod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
