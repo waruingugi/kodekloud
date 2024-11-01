@@ -1,0 +1,14 @@
+# > kubectl create serviceaccount <name>
+# > kubectl create serviceaccount dashboard-sa
+# > kubectl get serviceaccount
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-kubernetes-dashboard
+spec:
+  containers:
+    - name: my-kubernetes-dashboard
+      image: my-kubernetes-dashboard
+# Only required if a pod uses a different service account
+serviceAccountName: dashboard-sa

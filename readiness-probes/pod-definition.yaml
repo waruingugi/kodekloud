@@ -1,0 +1,24 @@
+# Used when a container to check if a container is ready to start
+# receiving requests (normally used to check container initialization has ended).
+# The commands are very similar to those of liveness probe.
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+  - name: simple-webapp
+    image: simple-webapp
+    ports:
+      - containerPort: 8080
+    readinessProbe:
+      exec::
+        command:
+          - cat
+          - /app/is_ready
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      failureThreshold: 8
